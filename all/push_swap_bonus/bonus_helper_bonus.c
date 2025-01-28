@@ -66,3 +66,23 @@ int	search_search(char *str)
 	else
 		return (write(2, "Error\n", 7), 0);
 }
+
+void	helper_moves(t_list *stck, char *er, char *oprt, char *next)
+{
+	if (!next && !sort_check(&stck))
+	{
+		freed(stck);
+		free(next);
+		free(oprt);
+		write(1, "OK\n", 3);
+		exit(0);
+	}
+	else if (!next)
+	{
+		freed(stck);
+		free(next);
+		free(oprt);
+		write(1, er, 7);
+		exit(0);
+	}
+}

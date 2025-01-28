@@ -35,7 +35,7 @@ void	*parce(int ac, char **av, int o, t_list *stack)
 	pp = NULL;
 	spliting_input(ac, av, &stack);
 	pp = stack;
-	if (ft_lstsize(stack) <= 1)
+	if (ft_lstsize(stack) < 1)
 		return (freed(stack), (write(2, "Error\n", 7)), NULL);
 	o = check(stack);
 	if (o == 0)
@@ -69,8 +69,7 @@ char	**moooves(int i, t_list *stck, char *er, t_list *stack_b)
 	if (!oprt)
 		return (free(oprt), freed(stck), NULL);
 	next = get_next_line(0);
-	if (!next)
-		return (freed(stck), free(next), free(oprt), (write(1, er, 7)), NULL);
+	helper_moves(stck, er, oprt, next);
 	while (next)
 	{
 		i = search_search(next);

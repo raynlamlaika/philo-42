@@ -65,5 +65,6 @@ int		move(t_list **stack_a, t_list **stack_b, char *str);
 int		is_passed(char *str, char *sec);
 int		search_search(char *str);
 char	*ft_itoa(int n);
+void	helper_moves(t_list *stck, char *er, char *oprt, char *next);
 
 #endif

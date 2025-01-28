@@ -88,7 +88,7 @@ int	main(int ac, char **av)
 	if (ac < 2)
 		return (0);
 	spliting_input(ac, av, &stack_a);
-	if (check(stack_a) == 0 || (ft_lstsize(stack_a) < 2))
+	if (check(stack_a) == 0 || (ft_lstsize(stack_a) < 1))
 		return (freed(stack_a), write(2, "Erorr\n", 7), 0);
 	switch_int(&stack_a);
 	o = check_double(&stack_a);
