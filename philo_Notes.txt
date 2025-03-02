@@ -1,0 +1,10 @@
+PHILOOOOOOOOOOOOOOOOOO
+
+
+
+
+philo is in classic concurrency problem in CS that is designed to manage synchronization issuses
+when multiple processes (THREDS) are shared the resources
+
+
+TREADS
