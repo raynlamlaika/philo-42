@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:49 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/03/06 13:35:36 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/03/08 00:03:58 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,16 @@
 
 typedef struct s_philo
 {
-	int	nbr_philos;
-	int	time_to_die;
-	int	time_to_eat;
-	int	time_to_sleep;
-	int	philo_must_eat;
-	
-}	t_philo;
+	int				nbr_philos;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				philo_must_eat;
+	pthread_mutex_t	*forks;
+}					t_philo;
 
 int	check_args(int ac, t_philo *philos);
+int	parssing(int ac, char **av, t_philo *philos);
 
 
 

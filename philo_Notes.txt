@@ -8,3 +8,6 @@ when multiple processes (THREDS) are shared the resources
 
 
 TREADS
+In many cases, a thread is a component of a process
+ina thread is in comprises of a thread id a program counter a register set and stack
+
