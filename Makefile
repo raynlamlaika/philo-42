@@ -8,7 +8,7 @@ all: ${NAME}
 
 
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(OBJ) -fsanitize=address -o $(NAME)
 
 
 

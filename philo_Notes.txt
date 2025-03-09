@@ -11,3 +11,26 @@ TREADS
 In many cases, a thread is a component of a process
 ina thread is in comprises of a thread id a program counter a register set and stack
 
+we creat in mutex with this data type  (pthread_mutex_t) depend on the system and the implementation of pthread
+it holds metadata needed to control thread access.
+
+
+What Does pthread_mutex_t Contain?
+Internally, the pthread_mutex_t structure typically contains:
+
+Lock state → Whether the mutex is currently locked or unlocked.
+Owner thread ID → Which thread currently holds the lock.
+Queue of waiting threads → If multiple threads try to lock a mutex, they are put in a queue.
+Mutex type → Whether it’s normal, recursive, or error-checking.
+Other flags → Implementation-specific details like priority settings.
+💡 Important: The exact internal structure is hidden in most implementations, meaning you cannot directly access its members.
+
+
+
+
+each philosopher is a separate thread.
+Instead of making one philosopher wait for another, each philosopher runs in parallel.
+They all check fork availability at the same time.
+This simulates real concurrency where multiple philosophers (threads) think and eat at the same time.
+
+

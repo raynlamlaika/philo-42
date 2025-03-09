@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/06 11:56:47 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/03/06 12:39:33 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/03/09 07:47:00 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-static void	cheek(int rs, int i, const char *str, t_philo *philos)
+static void	cheek(int rs, int i, const char *str, t_data *philos)
 {
 	long long	overflow;
 
@@ -35,7 +35,7 @@ static void	cheek(int rs, int i, const char *str, t_philo *philos)
 	}
 }
 
-int	ft_atoi(const char *str, t_philo *philos)
+int	ft_atoi(const char *str, t_data *philos)
 {
 	int		i;
 	int		sing;
