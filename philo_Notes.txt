@@ -34,3 +34,25 @@ They all check fork availability at the same time.
 This simulates real concurrency where multiple philosophers (threads) think and eat at the same time.
 
 
+
+why are this eq are the case
+		info->philos[i].left_fork = &info->forks[(i + 1) % info->nbr_philos];
+fo example we have in 4 philosofers
+with the id 
+[   1    ,   2     ,      3     ,   4    ]  and also in 4  forks
+    |        |            |         |
+[   1    ,   2     ,      3     ,   4    ]
+in this case the right  representation is 
+so the right hand is (for the first philo) is the fork 1
+and the left 
+
+
+
+
+
+
+
+
+
+
+

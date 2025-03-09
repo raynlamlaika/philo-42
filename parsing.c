@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:45:00 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/03/09 07:46:22 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/03/09 08:20:31 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	check_args(int ac, t_data *philos)
 	if (ac == 6)
 		if (philos->philo_must_eat < 1)
 			return (write(2,"number of time not enogh!\n", 27), free(philos), exit(1), 0);
+	return (1);
 }
 
 int	is_valid(char *str, t_data *philos)
@@ -57,10 +58,12 @@ int	passing_args(int ac, char**av, t_data *philos)
 	if (!is_valid(av[1], philos) || !is_valid(av[2], philos) || !is_valid(av[3], philos)|| !is_valid(av[4], philos))
 		return (write(2, "argemmnet are not valiiid !!\n", 29),exit(1) ,0);
 	if (ac == 6)
+	{
 		if (is_valid(av[5], philos))
 			philos->philo_must_eat = ft_atoi(av[5], philos);
 		else
 			return (write(2, "argemmnet are not valiiid !!\n", 29),exit(1) ,0);
+	}
 	philos->nbr_philos = ft_atoi(av[1], philos);
 	philos->time_to_die = ft_atoi(av[2], philos);
 	philos->time_to_eat = ft_atoi(av[3], philos);

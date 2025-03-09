@@ -1,5 +1,6 @@
 NAME = philo
-SRC= philo.c utils/ft_atoi.c utils/ft_itoa.c utils/ft_strncmp.c parsing.c
+SRC= philo.c utils/ft_atoi.c utils/ft_itoa.c utils/ft_strncmp.c parsing.c helpers.c \
+		philosophers.c
 OBJ = ${SRC:.c=.o}
 
 
