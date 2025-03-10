@@ -7,9 +7,9 @@ OBJ = ${SRC:.c=.o}
 all: ${NAME}
 
 
-
+# -fsanitize=address
 $(NAME): $(OBJ)
-	$(CC) $(OBJ) -fsanitize=address -o $(NAME)
+	$(CC) $(OBJ)  -o $(NAME)
 
 
 
