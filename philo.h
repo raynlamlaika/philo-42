@@ -35,6 +35,7 @@ typedef struct s_philo
 
 typedef struct s_data
 {
+	int				index_philo;
 	int				nbr_philos;
 	int				time_to_die;
 	int				time_to_eat;
@@ -46,10 +47,11 @@ typedef struct s_data
 }					t_data;
 
 
-typedef struct s_thread_data {
-    t_philo *philo;
-    t_data *info;
-} t_thread_data;
+typedef struct s_thread_data 
+{
+    t_philo	*philo;
+    t_data	*info;
+}			t_thread_data;
 
 
 int	check_args(int ac, t_data *philos);

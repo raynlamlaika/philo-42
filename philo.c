@@ -41,20 +41,14 @@ int init_forks(t_data *philos)
 int	init_philos(t_data	*info)
 {
 	int	i;
-	t_thread_data *thread_data;
 
 	i = 0;
-	// thread_data = malloc(sizeof(t_thread_data));
-	printf("alloancjnds\n");
-
 	info->philos = malloc(sizeof(t_philo) * info->nbr_philos);
 	if (!info->philos)
 		return (write(2, "failed in creat of philo [allocation]\n", 38),clear(info),0);
 	while (i < info->nbr_philos)
 	{
-		
-		// thread_data->philo = &info->philos[i];
-		// thread_data->info = info;
+		info->index_philo = i;
 		if (pthread_create(&info->philos[i].thread, NULL, philo_routine, &info->philos[i]) != 0)
 			return (write(2, "Thread creation failed\n", 23), clear(info), 0);
 		info->philos[i].id = i;
