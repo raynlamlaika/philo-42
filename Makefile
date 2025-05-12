@@ -7,11 +7,11 @@ OBJ = ${SRC:.c=.o}
 all: ${NAME}
 
 
-# -fsanitize=address
 $(NAME): $(OBJ)
-	$(CC) $(OBJ)  -o $(NAME)
+	$(CC) -fsanitize=thread  $(OBJ)  -o $(NAME)
 
-
+%.o: %.c $(HEADER)
+	$(CC) -fsanitize=thread -c $< -o $@
 
 clean:
 	rm -f $(OBJ)

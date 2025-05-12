@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:49 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/03/10 14:35:15 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/05/12 13:00:16 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,37 @@
 #include <limits.h>
 
 
+typedef struct s_data t_data;
+
 typedef struct s_philo
 {
 	int				id;
 	int				meals_eaten;
+	int				max_eat;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-	unsigned long	last_ate;
-	int				times_ate;
+	unsigned long	last_eat;
+	t_data			*data;
 }					t_philo;
 
 typedef struct s_data
 {
-	int				index_philo;
 	int				nbr_philos;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
 	int				philo_must_eat;
+	int         	simulation_stopped;
+	pthread_mutex_t print_mutex;
+	int				someone_died;
+	unsigned long	start_time;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t print_lock; // Mutex for synchronized printing
+	pthread_mutex_t	dead;
+	pthread_mutex_t	write_mutex;
+
 	t_philo			*philos;
 }					t_data;
-
-
-typedef struct s_thread_data 
-{
-    t_philo	*philo;
-    t_data	*info;
-}			t_thread_data;
 
 
 int	check_args(int ac, t_data *philos);
