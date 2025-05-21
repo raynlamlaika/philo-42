@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 09:27:04 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/05/12 13:00:54 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/05/18 05:57:19 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,13 +156,11 @@ void die(t_philo *philo)
 void *philo_routine(void *arg)
 {
 	t_philo *philo = (t_philo *)arg;
-
-	while (philo->max_eat == -1 || philo->meals_eaten < philo->max_eat)
+	while (philo->meals_eaten < philo->max_eat)
 	{
-		think(philo);
 		eat(philo);
 		sleep_philo(philo);
-        die(philo);
+		think(philo);
 	}
 	return NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 16:44:49 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/05/12 13:00:16 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/05/18 06:02:11 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	check_args(int ac, t_data *philos);
 int	parssing(int ac, char **av, t_data *philos);
 void *philo_routine(void *arg);
 
-
+long get_time();
 /*utils from libft*/
 int	ft_atoi(const char *str, t_data *philos);
 char	*ft_itoa(int n);

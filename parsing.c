@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/02 17:45:00 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/03/09 08:20:31 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/05/18 05:53:21 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	passing_args(int ac, char**av, t_data *philos)
 	philos->time_to_die = ft_atoi(av[2], philos);
 	philos->time_to_eat = ft_atoi(av[3], philos);
 	philos->time_to_sleep = ft_atoi(av[4], philos);
+	philos->start_time = 0 ; // implemment the function o sir t9awd
 	return (1);
 }
 
