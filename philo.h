@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/11 06:08:07 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/11 16:10:18 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_data
 	size_t				time_to_eat;
 	size_t				time_to_sleep;
 	size_t				number_of_times_each_philo_must_eat;
+	pthread_mutex_t		dead_helper;
 	int					dead;
 	unsigned int		start;
 }		t_data;
