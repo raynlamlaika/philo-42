@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/11 16:10:18 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/14 06:56:40 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo
 	pthread_mutex_t		*left_fork;
 	pthread_mutex_t		*right_fork;
 	unsigned int		last_time_eat;
+	pthread_mutex_t		m_time_eat;
 	unsigned int		eated;
 	t_data				*data;
 }		t_philo;
@@ -39,6 +40,7 @@ typedef struct s_philo
 typedef struct s_data
 {
 	t_philo				*philo;
+	pthread_t			checker;
 	pthread_mutex_t		*forks;
 	size_t				number_of_philos;
 	size_t				time_to_die;
@@ -47,8 +49,8 @@ typedef struct s_data
 	size_t				number_of_times_each_philo_must_eat;
 	pthread_mutex_t		dead_helper;
 	int					dead;
+	pthread_mutex_t		write;
 	unsigned int		start;
 }		t_data;
-
 
 #endif
