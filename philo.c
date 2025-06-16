@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 11:54:30 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:52:01 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	realstart(t_data *data)
 		i++;
 	}
 	j = 0;
-	if (pthread_create(&data->checker, NULL, die, data->philo) != 0)
+	if (pthread_create(&data->checker, NULL, die, data) != 0)
 		return (free(data), 0);
 	while (j < data->number_of_philos)
 	{
@@ -75,7 +75,9 @@ int	init_philo(t_data *data)
 			data->number_of_philos];
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
-		pthread_mutex_init(&data->philo[i].m_time_eat, NULL);
+		// pthread_mutex_init(&data->philo[i].m_time_eat, NULL);
+		if (pthread_mutex_init(&data->philo[i].m_time_eat, NULL) != 0)
+    		return (write(2, "mutex init failed\n", 18), 0);
 		i++;
 	}
 	realstart(data);

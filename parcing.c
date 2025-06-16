@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:57:06 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/14 18:14:59 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 13:42:44 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	parssing(char **av, int ac, t_data*data)
 		j = 0;
 		while (av[i][j])
 		{
-			if (ft_isdigit(av[i][j]) == 0 && av[i][j] != '+')
+			if ((ft_isdigit(av[i][j]) == 0 && av[i][j] != '+' )|| ft_atoi(av[i]) == 0)
 				return (printf("invalid arg :`%s`: philosopher\n", av[i]), 0);
 			if (av[i][j] == '+')
 			{

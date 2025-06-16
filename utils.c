@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:54:52 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 11:58:39 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:20:10 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,19 @@ void	*ft_printf(t_philo *philo, char*str)
 	}
 	pthread_mutex_unlock(&philo->data->dead_helper);
 	pthread_mutex_lock(&philo->data->write);
+	pthread_mutex_lock(&philo->m_time_eat);
 	i = get_time() - philo->data->start;
+	pthread_mutex_unlock(&philo->m_time_eat);
 	printf("time : `%ld` id: %zu %s \n", i, philo->id, str);
 	pthread_mutex_unlock(&philo->data->write);
 	return ("1");
 }
 
-int	must_eated(t_philo*philo)
+int	must_eated(t_philo philo)
 {
-	if (philo->data->number_of_times_each_philo_must_eat == -1)
-		return (0);
-	else if (philo->data->number_of_times_each_philo_must_eat <= philo->eated)
+	if (philo.data->number_of_times_each_philo_must_eat == -1)
 		return (1);
+	else if (philo.data->number_of_times_each_philo_must_eat <= philo.eated)
+		return (0);
 	return (0);
 }

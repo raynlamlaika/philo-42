@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 11:58:23 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 17:20:41 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ void	*die(void*philo_c);
 long	get_time(void);
 void	ft_usleep(t_data *data);
 void	*ft_printf(t_philo *philo, char*str);
-int		must_eated(t_philo *philo);
+int		must_eated(t_philo philo);
 
 #endif
