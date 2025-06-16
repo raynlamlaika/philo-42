@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:58:41 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 18:02:41 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:19:04 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@ int	takefork(t_philo *philo)
 	pthread_mutex_unlock(&philo->data->dead_helper);
 	pthread_mutex_lock(philo->left_fork);
 	ft_printf(philo, "has taken a fork");
-	pthread_mutex_lock(philo->right_fork);
 	pthread_mutex_lock(&philo->data->dead_helper);
 	if (philo->data->dead)
 	{
 		pthread_mutex_unlock(&philo->data->dead_helper);
 		pthread_mutex_unlock(philo->left_fork);
-		pthread_mutex_unlock(philo->right_fork);
 		return (0);
 	}
 	pthread_mutex_unlock(&philo->data->dead_helper);
+	pthread_mutex_lock(philo->right_fork);
 	ft_printf(philo, "has taken a fork");
 	return (1);
 }
@@ -116,7 +115,7 @@ void	*philo_routine(void*philo_c)
 
 	philo = (t_philo *) philo_c;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(15000);
 	while (1)
 	{
 		if (!takefork(philo))

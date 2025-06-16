@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 16:52:01 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:09:37 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	init_philo(t_data *data)
 	i = 0;
 	data->philo = malloc(sizeof(t_philo) * data->number_of_philos);
 	if (!data->philo)
-		return (free(data->philo), free(data), exit(1), 0);
+		return (free(data), exit(1), 0);
 	while (i < data->number_of_philos)
 	{
 		data->philo[i].left_fork = &data->forks[i];
