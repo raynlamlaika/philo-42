@@ -51,6 +51,15 @@ and the left
 
 
 
+------ THE LOGIC --------
+
+| Condition     | Logic                                                          |
+| ------------- | -------------------------------------------------------------- |
+| **Death**     | `if (now - last_meal > time_to_die)`                           |
+| **Eating**    | Happens only after picking up **both forks**                   |
+| **Sleeping**  | After eating, must `usleep(time_to_sleep)`                     |
+| **Thinking**  | Happens between sleeping and trying to take forks              |
+| **Loop Stop** | Either someone **died** or all have **eaten `must_eat` times** |
 
 
 

@@ -6,42 +6,11 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:58:41 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/14 18:26:00 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:58:13 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-int	stoped(t_data *data)
-{
-	int	result;
-
-	pthread_mutex_lock(&data->dead_helper);
-	result = data->dead;
-	pthread_mutex_unlock(&data->dead_helper);
-	if (result == 1)
-		return (0);
-	else
-		return (1);
-	return (result);
-}
-
-void	ft_printf(t_philo *philo, char*str)
-{
-	int	i;
-
-	pthread_mutex_lock(&philo->data->dead_helper);
-	if (philo->data->dead)
-	{
-		pthread_mutex_unlock(&philo->data->dead_helper);
-		return ;
-	}
-	pthread_mutex_unlock(&philo->data->dead_helper);
-	pthread_mutex_lock(&philo->data->write);
-	i = get_time() - philo->data->start;
-	printf("time : `%d` id: %zu %s \n", i, philo->id, str);
-	pthread_mutex_unlock(&philo->data->write);
-}
 
 int	takefork(t_philo *philo)
 {
@@ -87,35 +56,37 @@ int	eating(t_philo*philo)
 	usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
+	philo->eated++;
+	if (philo->eated >= philo->data->number_of_times_each_philo_must_eat)
+		return (0);
 	return (1);
 }
 
-void	sleeping(t_philo*philo)
+void	*sleeping(t_philo*philo)
 {
-	ft_printf(philo, "is sleeping");
+	if (ft_printf(philo, "is sleeping") == NULL)
+		return (NULL);
 	usleep(philo->data->time_to_sleep * 1000);
+	return ("1");
 }
 
 void	*die(void*philo_c)
 {
 	t_philo	*philo;
 	size_t	h;
-	long	now;
 
 	philo = (t_philo *)philo_c;
 	while (1)
 	{
-		now = get_time();
 		pthread_mutex_lock(&philo->m_time_eat);
-		h = now - philo->last_time_eat;
+		h = get_time() - philo->last_time_eat;
 		pthread_mutex_unlock(&philo->m_time_eat);
-		if (h > philo->data->time_to_die)
+		if (h > philo->data->time_to_die || must_eated(philo))
 		{
 			pthread_mutex_lock(&philo->data->dead_helper);
 			philo->data->dead = 1;
 			pthread_mutex_unlock(&philo->data->dead_helper);
 			pthread_mutex_lock(&philo->data->write);
-			h = now - philo->last_time_eat;
 			printf("time : `%zu` id: %zu died \n", h, philo->id);
 			pthread_mutex_unlock(&philo->data->write);
 			return (NULL);
@@ -134,21 +105,14 @@ void	*philo_routine(void*philo_c)
 		usleep(500);
 	while (1)
 	{
-		if (!stoped(philo->data))
-			break ;
 		if (!takefork(philo))
 			break ;
 		if (!eating(philo))
 			break ;
-		ft_printf(philo, "is thinking");
-		size_t start = get_time();
-		size_t v = (get_time() - start);
-		while (v < philo->data->time_to_sleep)
-		{
-			if (!stoped(philo->data))
-				return (NULL);
-			sleeping(philo);
-		}
+		if (ft_printf(philo, "is thinking") == NULL)
+			break ;
+		if (sleeping(philo) == NULL)
+			break ;
 	}
 	return (NULL);
 }

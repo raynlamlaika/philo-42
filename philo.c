@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/14 18:20:29 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 11:54:30 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ int	init_forks(t_data *data)
 	return (1);
 }
 
-long	get_time(void)
-{
-	struct timeval	time;
-
-	if (gettimeofday(&time, NULL) == -1)
-		return (-1);
-	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
-}
-
 int	realstart(t_data *data)
 {
 	size_t	i;
@@ -47,9 +38,12 @@ int	realstart(t_data *data)
 
 	i = 0;
 	data->start = get_time();
+	if (data->start == -1)
+		return (free(data->philo), free(data->forks), free(data), 0);
 	while (i < data->number_of_philos)
 	{
 		data->philo[i].last_time_eat = data->start;
+		data->philo[i].eated = 0;
 		if (pthread_create(&data->philo[i].philo, \
 			NULL, philo_routine, &data->philo[i]) != 0)
 			return (write(2, "Thread creation failed\n", 23), 0);
@@ -63,8 +57,7 @@ int	realstart(t_data *data)
 		pthread_join(data->philo[j].philo, NULL);
 		j++;
 	}
-	pthread_join(data->checker, NULL);
-	return (1);
+	return (pthread_join(data->checker, NULL), 1);
 }
 
 int	init_philo(t_data *data)
@@ -85,8 +78,6 @@ int	init_philo(t_data *data)
 		pthread_mutex_init(&data->philo[i].m_time_eat, NULL);
 		i++;
 	}
-	if (data->start == -1)
-		return (free(data->philo), free(data->forks), free(data), 0);
 	realstart(data);
 	return (1);
 }
