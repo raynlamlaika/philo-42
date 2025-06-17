@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 17:20:41 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/17 14:24:11 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct s_philo
 	long				last_time_eat;
 	pthread_mutex_t		m_time_eat;
 	int					eated;
+	pthread_mutex_t		eated_check;
+	int					eat_check;
 	t_data				*data;
 }		t_philo;
 

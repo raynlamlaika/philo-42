@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:54:52 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 17:20:10 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/16 23:46:53 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	*ft_printf(t_philo *philo, char*str)
 {
 	long	i;
 
+	if (philo->eat_check == 1)
+	{
+		return (NULL);
+	}
 	pthread_mutex_lock(&philo->data->dead_helper);
 	if (philo->data->dead)
 	{

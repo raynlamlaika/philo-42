@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/16 18:09:37 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/17 15:14:36 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	realstart(t_data *data)
 	{
 		data->philo[i].last_time_eat = data->start;
 		data->philo[i].eated = 0;
+		data->philo[i].eat_check = 0;
 		if (pthread_create(&data->philo[i].philo, \
 			NULL, philo_routine, &data->philo[i]) != 0)
 			return (write(2, "Thread creation failed\n", 23), 0);
@@ -75,7 +76,7 @@ int	init_philo(t_data *data)
 			data->number_of_philos];
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
-		// pthread_mutex_init(&data->philo[i].m_time_eat, NULL);
+		data->philo[i].eat_check = pthread_mutex_init(&data->philo[i].eated_check, NULL);
 		if (pthread_mutex_init(&data->philo[i].m_time_eat, NULL) != 0)
     		return (write(2, "mutex init failed\n", 18), 0);
 		i++;
