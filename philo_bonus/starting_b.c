@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 16:17:04 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/17 18:31:39 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 08:17:42 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	init_forks_b(t_data *data)
 {
-	int	i;
-
-	data->philo = malloc(sizeof(data->philo));
+	data->philo = malloc(sizeof(t_philo) * data->number_of_philos);
 	if (!data->philo)
 		return (free(data), 0);
-	i = sem_unlink("/forks");
+	sem_unlink("/forks");
+	sem_unlink("/dead");
+	sem_unlink("/write");
 	data->forks = sem_open("/forks", O_CREAT, 0644, data->number_of_philos);
 	if (data->forks == SEM_FAILED)
 	{
@@ -38,34 +38,97 @@ int	init_forks_b(t_data *data)
 	return (1);
 }
 
+void kill_all_philos(t_list * list)
+{
+	while (list)
+	{
+		kill(list->content, SIGKILL);
+		list = list->next;
+	}
+}
+
+// int	init_philo_b(t_data *data)
+// {
+// 	size_t		i;
+// 	int 	status;
+// 	pid_t	pid_child;
+// 	t_list	*lst;
+
+// 	i = 0;
+// 	lst = malloc(sizeof(t_list));
+// 	data->start = get_time();
+// 	while (i < data->number_of_philos)
+// 	{
+// 		pid_child = fork();
+// 		if (pid_child == -1)
+// 			exit(1);
+// 		if (pid_child == 0)
+// 			child_routine(data, i);
+// 		if (i == 0)
+// 			lst = ft_lstnew(pid_child);
+// 		else
+// 			ft_lstadd_back(&lst, ft_lstnew(pid_child));
+// 		i++;
+// 	}
+// 	for (size_t i = 0; i < data->number_of_philos; i++)
+// 	{
+// 		pid_child = waitpid(-1, &status, 0);
+//     	if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
+//     	{
+// 			kill_all_philos(lst);
+// 			break;
+//     	}
+// 	}
+// 	return (1);
+// }
+
 int	init_philo_b(t_data *data)
 {
-	int		i;
-	pid_t	pid;
-	t_list	*lst;
+	size_t		i = 0;
+	int 		status;
+	pid_t		pid_child;
+	t_list		*lst = NULL;
 
-	i = 0;
-	lst = malloc(sizeof(t_list));
-	while (i <= data->number_of_philos)
+	data->start = get_time();
+
+	while (i < data->number_of_philos)
 	{
-		pid = fork();
-		if (pid == -1)
-			;
-		if (pid == 0)
-			child_routine();
-		else if (i == 0)
-			ft_lstnew(pid);
-		else
-			ft_lstadd_back(pid, lst);
+		pid_child = fork();
+		if (pid_child == -1)
+		{
+			kill_all_philos(lst);
+			exit(1);
+		}
+		if (pid_child == 0)
+			child_routine(data, i);
+		
+		t_list *new = ft_lstnew(pid_child);
+		if (!new)
+		{
+			kill_all_philos(lst);
+			exit(1);
+		}
+		ft_lstadd_back(&lst, new);
 		i++;
 	}
+
+	for (size_t j = 0; j < data->number_of_philos; j++)
+	{
+		pid_child = waitpid(-1, &status, 0);
+		if (WIFEXITED(status) && WEXITSTATUS(status) == 1)
+		{
+			kill_all_philos(lst);
+			break;
+		}
+	}
+	return (1);
 }
 
 int	strating(t_data *data)
 {
 	if (init_forks_b(data) == -1)
 		return (-1);
-	if (init_philo_b(data) == -1);
+	if (init_philo_b(data) == -1)
 		return (-1);
 	return (1);
 }

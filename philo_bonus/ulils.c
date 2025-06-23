@@ -6,13 +6,13 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/17 18:20:20 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/17 18:20:41 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/20 02:38:44 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_b.h"
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(pid_t content)
 {
 	t_list	*p;
 
