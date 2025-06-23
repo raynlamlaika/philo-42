@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:54:52 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 10:18:40 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 10:30:08 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,8 @@ int	clearing(t_data*data)
 		pthread_mutex_destroy(&data->philo[i].eated_check);
 		i++;
 	}
+	free(data->forks);
+	free(data->philo);
+	free(data);
 	return (1);
 }
