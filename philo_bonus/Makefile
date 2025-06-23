@@ -5,7 +5,7 @@ SRC = child_routine.c  parcing.c  philo.c  starting_b.c  ulils.c
 OBJ = $(SRC:.c=.o)
 
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=thread -g
+CFLAGS = -Wall -Werror -Wextra #-fsanitize=thread -g
 
 HEADER = philo.h
 

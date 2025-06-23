@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/17 14:24:11 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 10:18:33 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ typedef struct s_philo
 	pthread_mutex_t		eated_check;
 	int					eat_check;
 	t_data				*data;
-}		t_philo;
+}						t_philo;
 
 typedef struct s_data
 {
@@ -54,12 +54,17 @@ typedef struct s_data
 	long				start;
 }		t_data;
 
-int		parssing(char **av, int ac, t_data*data);
+int		parssing(char **av, t_data*data);
 void	*philo_routine(void *philo_c);
 void	*die(void*philo_c);
 long	get_time(void);
 void	ft_usleep(t_data *data);
 void	*ft_printf(t_philo *philo, char*str);
 int		must_eated(t_philo philo);
+void	*sleeping(t_philo*philo);
+void	*die_helper(t_data *data, int i, size_t h);
+void	*die(void *philo_c);
+int		ft_helper(t_philo *philo);
+int		clearing(t_data*data);
 
 #endif

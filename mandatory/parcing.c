@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:57:06 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/20 02:19:14 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 09:07:19 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,26 @@ void	add_to(t_data*data, int ac, char**av)
 		data->number_of_times_each_philo_must_eat = -1;
 }
 
-int	parssing(char **av, int ac, t_data*data)
+int	parssing(char **av, t_data*data)
 {
 	int	i;
 	int	j;
 
 	i = 1;
-	if (ac < 5 || ac >= 7)
-		return (printf("not enoght args\n"), 0);
 	while (av[i])
 	{
 		j = 0;
 		if (av[i][j] == '\0')
-			return (printf("invalid arg :NULL values are not valid : philosopher\n"), 0);
+			return (printf("NULL values are not valid : philosopher\n"), 0);
 		while (av[i][j])
 		{
-			if ((ft_isdigit(av[i][j]) == 0 && av[i][j] != '+' )|| ft_atoi(av[i]) == 0)
-				return (printf("invalid arg :`%s`: philosopher\n", av[i]), 0);
+			if ((ft_isdigit(av[i][j]) == 0 && av[i][j] != '+' ) \
+			|| ft_atoi(av[i]) == 0)
+				return (printf("`%s`: philosopher\n", av[i]), 0);
 			if (av[i][j] == '+')
 			{
 				if (av[i][++j] == '+')
-					return (printf("invalid arg :`%s`: philosopher\n", av[i]) \
-					, 0);
+					return (printf("`%s`: philosopher\n", av[i]), 0);
 			}
 			j++;
 		}

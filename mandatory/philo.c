@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/17 15:14:36 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 10:18:13 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,7 @@ int	realstart(t_data *data)
 	if (pthread_create(&data->checker, NULL, die, data) != 0)
 		return (free(data), 0);
 	while (j < data->number_of_philos)
-	{
-		pthread_join(data->philo[j].philo, NULL);
-		j++;
-	}
+		pthread_join(data->philo[j++].philo, NULL);
 	return (pthread_join(data->checker, NULL), 1);
 }
 
@@ -76,12 +73,14 @@ int	init_philo(t_data *data)
 			data->number_of_philos];
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
-		data->philo[i].eat_check = pthread_mutex_init(&data->philo[i].eated_check, NULL);
+		data->philo[i].eat_check \
+		= pthread_mutex_init(&data->philo[i].eated_check, NULL);
 		if (pthread_mutex_init(&data->philo[i].m_time_eat, NULL) != 0)
-    		return (write(2, "mutex init failed\n", 18), 0);
+			return (write(2, "mutex init failed\n", 18), 0);
 		i++;
 	}
 	realstart(data);
+	clearing(data);
 	return (1);
 }
 
@@ -96,10 +95,12 @@ int	main(int ac, char**av)
 {
 	t_data	*data;
 
+	if (ac < 5 || ac >= 7)
+		return (printf("not enoght args\n"), 0);
 	data = malloc (sizeof(t_data));
 	if (!data)
 		return (1);
-	if (parssing(av, ac, data) == 0)
+	if (parssing(av, data) == 0)
 		return (free(data), 0);
 	stating(data);
 	return (0);
