@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 10:18:33 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:52:23 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		parssing(char **av, t_data*data);
 void	*philo_routine(void *philo_c);
 void	*die(void*philo_c);
 long	get_time(void);
-void	ft_usleep(t_data *data);
+void	ft_usleep(size_t time);
 void	*ft_printf(t_philo *philo, char*str);
 int		must_eated(t_philo philo);
 void	*sleeping(t_philo*philo);

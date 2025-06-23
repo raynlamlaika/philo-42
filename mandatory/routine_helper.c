@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 09:20:36 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 10:18:50 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 16:43:20 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*sleeping(t_philo*philo)
 		return (NULL);
 	if (ft_printf(philo, "is sleeping") == NULL)
 		return (NULL);
-	usleep(philo->data->time_to_sleep * 1000);
+	ft_usleep(philo->data->time_to_sleep * 1000);
 	return ("1");
 }
 

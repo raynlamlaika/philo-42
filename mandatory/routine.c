@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:58:41 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 10:02:08 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:16:45 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int	eating(t_philo*philo)
 	pthread_mutex_lock(&philo->m_time_eat);
 	philo->last_time_eat = get_time();
 	pthread_mutex_unlock(&philo->m_time_eat);
-	usleep(philo->data->time_to_eat * 1000);
+	ft_usleep(philo->data->time_to_eat * 1000);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_lock(&philo->m_time_eat);
@@ -112,10 +112,9 @@ void	*philo_routine(void*philo_c)
 
 	philo = (t_philo *) philo_c;
 	if (philo->id % 2 == 0)
-		usleep(50);
+		ft_usleep(2);
 	while (ft_helper(philo))
 	{
-		usleep(1000);
 		if (!takefork(philo))
 			break ;
 		if (!eating(philo))
@@ -124,7 +123,7 @@ void	*philo_routine(void*philo_c)
 			break ;
 		if (ft_printf(philo, "is thinking") == NULL)
 			break ;
-		usleep(1500);
 	}
+	ft_usleep(1000);
 	return (NULL);
 }

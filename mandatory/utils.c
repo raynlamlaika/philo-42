@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:54:52 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 10:30:08 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:17:04 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,9 @@ long	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	ft_usleep(t_data *data)
-{
-	(void)data;
-	return ;
-}
-
 void	*ft_printf(t_philo *philo, char*str)
 {
-	long	i;
+	size_t	i;
 
 	if (philo->eat_check == 1)
 	{
@@ -79,4 +73,18 @@ int	clearing(t_data*data)
 	free(data->philo);
 	free(data);
 	return (1);
+}
+
+void	ft_usleep(size_t time)
+{
+	size_t	i;
+
+	i = 0;
+	while (1)
+	{
+		if (i >= time)
+			break ;
+		usleep(100);
+		i = i + 100;
+	}
 }

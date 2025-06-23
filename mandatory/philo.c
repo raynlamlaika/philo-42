@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 10:29:25 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/23 17:16:28 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	init_forks(t_data *data)
 	while (data->number_of_philos > i)
 	{
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
-			return (free(data), free(data->forks), exit(1), 0);
+			return (free(data->forks), free(data), 0);
 		i++;
 	}
 	pthread_mutex_init(&data->write, NULL);
