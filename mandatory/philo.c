@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/24 13:47:29 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:11:11 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,22 @@
 
 int	init_forks(t_data *data)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->number_of_philos);
+
 	if (!data->forks)
 		return (write(2, "malloc are filed\n", 17), 1);
 	while (data->number_of_philos > i)
 	{
-		pthread_mutex_init(&data->philo->last_eat, NULL);
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (free(data->forks), free(data), 0);
 		i++;
 	}
 	pthread_mutex_init(&data->write, NULL);
 	pthread_mutex_init(&data->dead_helper, NULL);
+	pthread_mutex_init(&data->time_helper, NULL);
 	return (1);
 }
 
@@ -74,6 +75,7 @@ int	init_philo(t_data *data)
 			data->number_of_philos];
 		data->philo[i].id = i + 1;
 		data->philo[i].data = data;
+		pthread_mutex_init(&data->philo[i].last_eat, NULL);
 		data->philo[i].eat_check \
 		= pthread_mutex_init(&data->philo[i].eated_check, NULL);
 		if (pthread_mutex_init(&data->philo[i].m_time_eat, NULL) != 0)

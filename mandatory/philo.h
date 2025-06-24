@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/24 13:46:22 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/24 16:10:24 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ typedef struct s_data
 	pthread_mutex_t		*forks;
 	size_t				number_of_philos;
 	size_t				time_to_die;
+	pthread_mutex_t		time_helper;
 	size_t				time_to_eat;
 	size_t				time_to_sleep;
 	long				number_of_times_each_philo_must_eat;
