@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 09:20:36 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 16:43:20 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:49:59 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*sleeping(t_philo*philo)
 		return (NULL);
 	if (ft_printf(philo, "is sleeping") == NULL)
 		return (NULL);
-	ft_usleep(philo->data->time_to_sleep * 1000);
+	ft_usleep(philo->data->time_to_sleep, philo->data);
 	return ("1");
 }
 
@@ -42,8 +42,8 @@ void	*die_helper(t_data *data, int i, size_t h)
 void	*die(void *philo_c)
 {
 	t_data	*data;
-	size_t	h;
 	int		i;
+	int		yyy;
 	int		eated;
 
 	(1) && (data = (t_data *)philo_c, i = 0);
@@ -58,12 +58,12 @@ void	*die(void *philo_c)
 			i = (1 + i) % data->number_of_philos;
 			continue ;
 		}
-		pthread_mutex_lock(&data->philo[i].m_time_eat);
-		h = get_time() - data->philo[i].last_time_eat;
-		pthread_mutex_unlock(&data->philo[i].m_time_eat);
-		if (die_helper(data, i, h) == NULL)
+		pthread_mutex_lock(&data->philo[i].last_eat);
+		yyy = get_time() - data->philo->last_time_eat;
+		pthread_mutex_unlock(&data->philo[i].last_eat);
+		if (die_helper(data, i, yyy) == NULL)
 			return (NULL);
-		i = (1 + i) % data->number_of_philos;
+		(1) && (i = (1 + i) % data->number_of_philos, usleep(20));
 	}
 	return (NULL);
 }

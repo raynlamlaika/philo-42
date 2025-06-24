@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:11:46 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 17:16:28 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:47:29 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	init_forks(t_data *data)
 		return (write(2, "malloc are filed\n", 17), 1);
 	while (data->number_of_philos > i)
 	{
+		pthread_mutex_init(&data->philo->last_eat, NULL);
 		if (pthread_mutex_init(&data->forks[i], NULL) != 0)
 			return (free(data->forks), free(data), 0);
 		i++;

@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:54:52 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 17:17:04 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:50:21 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,34 @@ long	get_time(void)
 	struct timeval	time;
 
 	if (gettimeofday(&time, NULL) == -1)
-		return (-1);
+		return (1);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void	ft_usleep(size_t i, t_data*data)
+{
+	size_t	start;
+
+	start = get_time();
+	while ((get_time() - start) <= i)
+	{
+		pthread_mutex_lock(&data->dead_helper);
+		if (data->dead)
+		{
+			pthread_mutex_unlock(&data->dead_helper);
+			break ;
+		}
+		pthread_mutex_unlock(&data->dead_helper);
+		usleep(150);
+	}
 }
 
 void	*ft_printf(t_philo *philo, char*str)
 {
-	size_t	i;
+	long	i;
 
 	if (philo->eat_check == 1)
-	{
 		return (NULL);
-	}
 	pthread_mutex_lock(&philo->data->dead_helper);
 	if (philo->data->dead)
 	{
@@ -39,8 +55,8 @@ void	*ft_printf(t_philo *philo, char*str)
 	pthread_mutex_lock(&philo->data->write);
 	pthread_mutex_lock(&philo->m_time_eat);
 	i = get_time() - philo->data->start;
-	pthread_mutex_unlock(&philo->m_time_eat);
 	printf("time : `%ld` id: %zu %s \n", i, philo->id, str);
+	pthread_mutex_unlock(&philo->m_time_eat);
 	pthread_mutex_unlock(&philo->data->write);
 	return ("1");
 }
@@ -56,35 +72,18 @@ int	must_eated(t_philo philo)
 
 int	clearing(t_data*data)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&data->dead_helper);
 	pthread_mutex_destroy(&data->write);
-	while (data->number_of_philos >= i)
+	pthread_mutex_destroy(&data->dead_helper);
+	while (i <= data->number_of_philos)
 	{
-		pthread_mutex_destroy(&data->philo->left_fork[i]);
-		pthread_mutex_destroy(&data->philo->right_fork[i]);
+		pthread_mutex_destroy(data->philo[i].left_fork);
+		pthread_mutex_destroy(data->philo[i].right_fork);
 		pthread_mutex_destroy(&data->philo[i].m_time_eat);
 		pthread_mutex_destroy(&data->philo[i].eated_check);
+		pthread_mutex_destroy(&data->forks[i]);
 		i++;
-	}
-	free(data->forks);
-	free(data->philo);
-	free(data);
-	return (1);
-}
-
-void	ft_usleep(size_t time)
-{
-	size_t	i;
-
-	i = 0;
-	while (1)
-	{
-		if (i >= time)
-			break ;
-		usleep(100);
-		i = i + 100;
 	}
 }

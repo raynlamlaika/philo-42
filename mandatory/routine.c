@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:58:41 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/23 17:16:45 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/24 13:48:01 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,16 @@ int	eat_helper(t_philo *philo)
 
 int	eating(t_philo*philo)
 {
+	int	i;
+
 	if (eat_helper(philo) == 0)
 		return (0);
 	ft_printf(philo, "is eating");
-	pthread_mutex_lock(&philo->m_time_eat);
+	pthread_mutex_lock(&philo->last_eat);
 	philo->last_time_eat = get_time();
-	pthread_mutex_unlock(&philo->m_time_eat);
-	ft_usleep(philo->data->time_to_eat * 1000);
+	pthread_mutex_unlock(&philo->last_eat);
+	i = philo->data->time_to_eat;
+	ft_usleep(i, philo->data);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 	pthread_mutex_lock(&philo->m_time_eat);
@@ -112,7 +115,7 @@ void	*philo_routine(void*philo_c)
 
 	philo = (t_philo *) philo_c;
 	if (philo->id % 2 == 0)
-		ft_usleep(2);
+		usleep(100);
 	while (ft_helper(philo))
 	{
 		if (!takefork(philo))
@@ -124,6 +127,5 @@ void	*philo_routine(void*philo_c)
 		if (ft_printf(philo, "is thinking") == NULL)
 			break ;
 	}
-	ft_usleep(1000);
 	return (NULL);
 }
