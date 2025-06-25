@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:54:52 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/24 16:07:31 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:27:35 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,18 @@ int	must_eated(t_philo philo)
 
 int	clearing(t_data*data)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
 	pthread_mutex_destroy(&data->write);
 	pthread_mutex_destroy(&data->dead_helper);
+	pthread_mutex_destroy(&data->time_helper);
 	while (i <= data->number_of_philos)
 	{
-		// pthread_mutex_destroy(data->philo[i].left_fork);
-		// pthread_mutex_destroy(data->philo[i].right_fork);
-		// pthread_mutex_destroy(&data->philo[i].m_time_eat);
-		// pthread_mutex_destroy(&data->philo[i].eated_check);
-		// pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philo->last_eat);
+		pthread_mutex_destroy(&data->philo[i].m_time_eat);
+		pthread_mutex_destroy(&data->philo[i].eated_check);
 		i++;
 	}
 	return (1);

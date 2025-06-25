@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/11 02:12:31 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/24 16:10:24 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:04:49 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_data
 	pthread_mutex_t		write;
 	long				start;
 }		t_data;
-
+void heper(t_data *data, int i);
 int		parssing(char **av, t_data*data);
 void	*philo_routine(void *philo_c);
 void	*die(void*philo_c);

@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/23 09:20:36 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/24 13:49:59 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/25 15:05:17 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,10 @@ void	*die_helper(t_data *data, int i, size_t h)
 		pthread_mutex_unlock(&data->write);
 		return (NULL);
 	}
+	pthread_mutex_lock(&data->philo[i].m_time_eat);
 	if (data->philo[i].eat_check == 1)
-		return (NULL);
+		return (pthread_mutex_unlock(&data->philo[i].m_time_eat), NULL);
+	pthread_mutex_unlock(&data->philo[i].m_time_eat);
 	return ("1");
 }
 
@@ -59,7 +61,7 @@ void	*die(void *philo_c)
 			continue ;
 		}
 		pthread_mutex_lock(&data->philo[i].last_eat);
-		yyy = get_time() - data->philo->last_time_eat;
+		yyy = get_time() - data->philo[i].last_time_eat;
 		pthread_mutex_unlock(&data->philo[i].last_eat);
 		if (die_helper(data, i, yyy) == NULL)
 			return (NULL);
@@ -78,4 +80,14 @@ int	ft_helper(t_philo *philo)
 	}
 	pthread_mutex_unlock(&philo->data->dead_helper);
 	return (1);
+}
+
+void heper(t_data *data, int i)
+{
+	int	j;
+
+	j = 0;
+	clearing(data);
+	while (j < i)
+		pthread_join(data->philo[j++].philo, NULL);
 }

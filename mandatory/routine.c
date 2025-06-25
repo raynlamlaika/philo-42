@@ -6,7 +6,7 @@
 /*   By: rlamlaik <rlamlaik@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 17:58:41 by rlamlaik          #+#    #+#             */
-/*   Updated: 2025/06/24 16:14:11 by rlamlaik         ###   ########.fr       */
+/*   Updated: 2025/06/25 14:10:18 by rlamlaik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,16 +95,16 @@ int	eating(t_philo*philo)
 	pthread_mutex_lock(&philo->last_eat);
 	philo->last_time_eat = get_time();
 	pthread_mutex_unlock(&philo->last_eat);
-	// pthread_mutex_lock(&philo->data->time_helper);
+	pthread_mutex_lock(&philo->data->time_helper);
 	i = philo->data->time_to_eat;
-	// pthread_mutex_unlock(&philo->data->time_helper);
+	pthread_mutex_unlock(&philo->data->time_helper);
 	ft_usleep(i, philo->data);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_lock(&philo->m_time_eat);
 	pthread_mutex_lock(&philo->eated_check);
 	philo->eated++;
 	pthread_mutex_unlock(&philo->eated_check);
+	pthread_mutex_lock(&philo->m_time_eat);
 	if (philo->eated == philo->data->number_of_times_each_philo_must_eat)
 		philo->eat_check = 1;
 	pthread_mutex_unlock(&philo->m_time_eat);
