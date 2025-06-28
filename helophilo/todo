@@ -1,0 +1,52 @@
+ ./philo 4278190335 800  200 200   
+philo(59785,0x1146a4dc0) malloc: can't allocate region
+:*** mach_vm_map(size=18446744072635826176, flags: 100) failed (error code=3)
+philo(59785,0x1146a4dc0) malloc: *** set a breakpoint in malloc_error_break to debug
+malloc are filed
+philo(59785,0x1146a4dc0) malloc: can't allocate region
+:*** mach_vm_map(size=18446744069414649856, flags: 100) failed (error code=3)
+philo(59785,0x1146a4dc0) malloc: *** set a breakpoint in malloc_error_break to debug
+
+
+time : `0` id: 1 has taken a fork 
+time : `0` id: 5 has taken a fork 
+time : `0` id: 5 has taken a fork 
+time : `0` id: 5 is eating 
+time : `0` id: 3 has taken a fork 
+time : `0` id: 3 has taken a fork 
+time : `0` id: 3 is eating 
+time : `201` id: 3 is sleeping 
+time : `201` id: 4 has taken a fork 
+time : `201` id: 4 has taken a fork 
+time : `201` id: 5 is sleeping 
+time : `201` id: 1 has taken a fork 
+time : `201` id: 1 is eating 
+time : `201` id: 4 is eating 
+time : `302` id: 5 is thinking 
+time : `302` id: 3 is thinking 
+time : `402` id: 4 is sleeping 
+time : `402` id: 3 has taken a fork 
+time : `402` id: 3 has taken a fork 
+time : `402` id: 3 is eating 
+time : `402` id: 1 is sleeping 
+time : `402` id: 2 has taken a fork 
+time : `402` id: 5 has taken a fork 
+time : `402` id: 5 has taken a fork 
+time : `402` id: 5 is eating 
+time : `503` id: 1 is thinking 
+time : `503` id: 4 is thinking 
+time : `311` id: 2 died 
+
+
+
+
+while true ; do  ./philo 5 800 200 200 3 | grep "is eating" | wc -l ; done
+      10
+      15
+      15
+      15
+      15
+      15
+      10
+      15
+      15
